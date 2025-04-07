@@ -3,6 +3,7 @@ package com.example.rhymefinder.models
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
+//The hard-coded list of poems in the Home screen
 @Parcelize
 data class poems(
     val poem: String, val rhyme: String, val poet: String

@@ -31,6 +31,7 @@ import com.example.rhymefinder.models.RhymeFind
 import com.example.rhymefinder.models.SavedRhymes
 import com.orhanobut.hawk.Hawk
 
+//The item template in Search screen
 @Composable
 fun QueryItem(modifier: Modifier = Modifier, query: String, rhyme: String) {
     val context = LocalContext.current
@@ -43,6 +44,7 @@ fun QueryItem(modifier: Modifier = Modifier, query: String, rhyme: String) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
+        //Using Crossfade for a smoother animation in the buttons
         Crossfade(done) {
             Button(modifier = Modifier
                 .size(65.dp, 65.dp),

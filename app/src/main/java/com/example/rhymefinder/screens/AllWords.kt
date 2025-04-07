@@ -44,7 +44,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.launch
 
 @Destination
-/*(start = true)*/
 @Composable
 fun AllWords(modifier: Modifier = Modifier) {
     val context = LocalContext.current
@@ -72,6 +71,11 @@ fun AllWords(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(Modifier.height(12.dp))
+        //the search bar
+            /*there were other default searchBars that I have personally used in my other projects,
+            but honestly, none of them seemed practical,
+            because they all used a pre-instructed list,
+            but in here we have the list after the action of searching!*/
         Card(
             modifier = Modifier
                 .fillMaxWidth()

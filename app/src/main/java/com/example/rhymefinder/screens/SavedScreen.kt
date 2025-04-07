@@ -36,12 +36,14 @@ fun SavedScreen(modifier: Modifier = Modifier) {
         LazyColumn {
             items(savedListState ?: emptyList()) {
                 SavedScreenItem(modifier, it, onDeleteClick = {
+                    //The clickables are handled below this code...
                     showItemDialog = it
                 })
                 Spacer(Modifier.height(12.dp))
             }
         }
     }
+    //To use the clickables in the Dialog
     showItemDialog?.let { item ->
         DeleteDialog(onConfirmClick = {
             val updatedList: List<SavedRhymes>? =

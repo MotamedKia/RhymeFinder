@@ -2,6 +2,7 @@ package com.example.rhymefinder.models
 
 import kotlinx.serialization.Serializable
 
+//the original Database
 @Serializable
 data class RhymeFind(
     val current_page: Int,

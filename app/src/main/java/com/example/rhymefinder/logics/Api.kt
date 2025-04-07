@@ -9,6 +9,8 @@ import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
+//API
+    /*this api receives a query and finds all the possible rhymes to this query*/
 suspend fun getRhyme(query: String): RhymeFind {
     val client = HttpClient(CIO) {
         install(ContentNegotiation) {

@@ -14,8 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -42,24 +40,21 @@ import androidx.compose.ui.unit.sp
 import com.example.rhymefinder.R
 import com.example.rhymefinder.logics.RandomIndex
 import com.example.rhymefinder.logics.getRhyme
-import com.example.rhymefinder.models.DataItem
 import com.example.rhymefinder.models.RhymeFind
 import com.example.rhymefinder.models.poemList
 import com.example.rhymefinder.models.poems
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
-import kotlin.math.tanh
 
 @Destination(start = true)
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     var rhymeState by remember { mutableStateOf<RhymeFind?>(null) }
-    var rand by remember { mutableStateOf(RandomIndex(poemList)) }
-    val poems by remember { mutableStateOf<List<poems>>(poemList) }
-    var rhymeQuery by remember { mutableStateOf(poems[rand].rhyme) }
-    var available by remember { mutableStateOf(true) }
+    var rand by remember { mutableStateOf(RandomIndex(poemList)) } //for the random poem
+    val poem by remember { mutableStateOf<List<poems>>(poemList) } //for the random poem
+    var rhymeQuery by remember { mutableStateOf(poem[rand].rhyme) } //for the preview below the Home screen
+    var available by remember { mutableStateOf(true) } //to see if api is successful or not
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -75,6 +70,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         }
     }
 
+    //the random-giving-poem button
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -83,7 +79,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     ) {
         IconButton(onClick = {
             rand = RandomIndex(poemList)
-            rhymeQuery = poems[rand].rhyme
+            rhymeQuery = poem[rand].rhyme
             coroutineScope.launch {
                 try {
                     rhymeState = getRhyme(rhymeQuery)
@@ -103,6 +99,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         }
     }
 
+    //the rest of Home screen
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -116,7 +113,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 .padding(horizontal = 20.dp),
             horizontalArrangement = Arrangement.End
         ) {
-            Crossfade(poems) {
+            //to give a smoother animation to the changing poem
+            Crossfade(poem) {
                 Text(
                     text = it[rand].poem,
                     modifier = modifier.padding(vertical = 15.dp),
@@ -133,7 +131,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 .padding(end = 8.dp, start = 15.dp,/* top = 15.dp,*/ bottom = 70.dp),
             horizontalArrangement = Arrangement.Start
         ) {
-            Crossfade(poems) {
+            //to give a smoother animation to the changing rhyme
+            Crossfade(poem) {
                 Text(
                     text = it[rand].poet,
                     modifier = modifier,
@@ -158,7 +157,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .padding(end = 24.dp, top = 14.dp, start = 24.dp)
                 ) {
-                    Crossfade(poems) { Text(it[rand].rhyme, fontSize = 18.sp) }
+                    //to give a smoother animation to the changing list
+                    Crossfade(poem) { Text(it[rand].rhyme, fontSize = 18.sp) }
                     HorizontalDivider(
                         Modifier.padding(horizontal = 8.dp, vertical = 10.dp),
                         color = MaterialTheme.colorScheme.onSecondary

@@ -29,6 +29,8 @@ import com.example.rhymefinder.R
 import com.example.rhymefinder.models.SavedRhymes
 import com.orhanobut.hawk.Hawk
 
+//when the item in Saved screen is clicked, this Dialog is called
+    /*the clickables are handled inn Saved screen*/
 @Composable
 fun DeleteDialog(modifier: Modifier = Modifier, onConfirmClick: () -> Unit, onDismiss: () -> Unit) {
 
