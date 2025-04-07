@@ -43,6 +43,7 @@ import com.example.rhymefinder.models.RhymeFind
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.launch
 
+//this is Search screen, it's too late to rename it!
 @Destination
 @Composable
 fun AllWords(modifier: Modifier = Modifier) {
