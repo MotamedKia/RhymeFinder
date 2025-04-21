@@ -2,6 +2,7 @@ package com.example.rhymefinder.screens
 
 import android.widget.Toast
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,7 +32,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -55,6 +60,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     val poem by remember { mutableStateOf<List<poems>>(poemList) } //for the random poem
     var rhymeQuery by remember { mutableStateOf(poem[rand].rhyme) } //for the preview below the Home screen
     var available by remember { mutableStateOf(true) } //to see if api is successful or not
+    var errorProof by remember { mutableStateOf(true) } //to see if api is successful or not
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -64,129 +70,157 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 rhymeState = getRhyme(rhymeQuery)
                 available = true
             } catch (e: Exception) {
-                Toast.makeText(context, "این کلمه پیدا نشد!", Toast.LENGTH_SHORT).show()
                 available = false
+                errorProof = false
             }
         }
     }
 
-    //the random-giving-poem button
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(end = 20.dp, top = 15.dp),
-        horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.Top
-    ) {
-        IconButton(onClick = {
-            rand = RandomIndex(poemList)
-            rhymeQuery = poem[rand].rhyme
-            coroutineScope.launch {
-                try {
-                    rhymeState = getRhyme(rhymeQuery)
-                    available = true
-                } catch (e: Exception) {
-                    Toast.makeText(context, "این کلمه پیدا نشد!", Toast.LENGTH_SHORT).show()
-                    available = false
+    //to see if there is a proper connection
+    if (errorProof) {
+
+        //the random-giving-poem button
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 20.dp, top = 15.dp),
+            horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.Top
+        ) {
+            IconButton(onClick = {
+                rand = RandomIndex(poemList)
+                rhymeQuery = poem[rand].rhyme
+                coroutineScope.launch {
+                    try {
+                        rhymeState = getRhyme(rhymeQuery)
+                        available = true
+                    } catch (e: Exception) {
+                        Toast.makeText(context, "این کلمه پیدا نشد!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }) {
+                Icon(
+                    Icons.Default.Refresh,
+                    "",
+                    Modifier.size(30.dp, 30.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+
+        //the rest of Home screen
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 15.dp)
+                .statusBarsPadding(),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                //to give a smoother animation to the changing poem
+                Crossfade(poem) {
+                    Text(
+                        text = it[rand].poem,
+                        modifier = modifier.padding(vertical = 15.dp),
+                        textAlign = TextAlign.End,
+                        fontFamily = FontFamily(Font(R.font.sher_font)),
+                        fontSize = 26.sp,
+                        color = MaterialTheme.colorScheme.primary
+                    )
                 }
             }
-        }) {
-            Icon(
-                Icons.Default.Refresh,
-                "",
-                Modifier.size(30.dp, 30.dp),
-                tint = MaterialTheme.colorScheme.primary
-            )
-        }
-    }
-
-    //the rest of Home screen
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 15.dp)
-            .statusBarsPadding(),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
-            horizontalArrangement = Arrangement.End
-        ) {
-            //to give a smoother animation to the changing poem
-            Crossfade(poem) {
-                Text(
-                    text = it[rand].poem,
-                    modifier = modifier.padding(vertical = 15.dp),
-                    textAlign = TextAlign.End,
-                    fontFamily = FontFamily(Font(R.font.sher_font)),
-                    fontSize = 26.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 8.dp, start = 15.dp,/* top = 15.dp,*/ bottom = 70.dp),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            //to give a smoother animation to the changing rhyme
-            Crossfade(poem) {
-                Text(
-                    text = it[rand].poet,
-                    modifier = modifier,
-                    textAlign = TextAlign.Start,
-                    fontFamily = FontFamily(Font(R.font.sher_font)),
-                    fontSize = 22.sp,
-                    color = MaterialTheme.colorScheme.secondary
-                )
-            }
-        }
-        Column(
-            verticalArrangement = Arrangement.Bottom,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 24.dp)
-                .size(width = 100.dp, height = 200.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Card(modifier = Modifier.fillMaxSize(), shape = RoundedCornerShape(25.dp)) {
-                Column(
-                    horizontalAlignment = Alignment.End, modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 24.dp, top = 14.dp, start = 24.dp)
-                ) {
-                    //to give a smoother animation to the changing list
-                    Crossfade(poem) { Text(it[rand].rhyme, fontSize = 18.sp) }
-                    HorizontalDivider(
-                        Modifier.padding(horizontal = 8.dp, vertical = 10.dp),
-                        color = MaterialTheme.colorScheme.onSecondary
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 8.dp, start = 15.dp,/* top = 15.dp,*/ bottom = 70.dp),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                //to give a smoother animation to the changing rhyme
+                Crossfade(poem) {
+                    Text(
+                        text = it[rand].poet,
+                        modifier = modifier,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.sher_font)),
+                        fontSize = 22.sp,
+                        color = MaterialTheme.colorScheme.secondary
                     )
-                    if (rhymeState != null) {
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.Top,
-                            horizontalAlignment = Alignment.End
-                        ) {
-                            items(rhymeState!!.data_items) {
-                                if (available) {
-                                    Text(
-                                        it.word,
-                                        textAlign = TextAlign.End
-                                    )
+                }
+            }
+            Column(
+                verticalArrangement = Arrangement.Bottom,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 24.dp)
+                    .size(width = 100.dp, height = 200.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Card(modifier = Modifier.fillMaxSize(), shape = RoundedCornerShape(25.dp)) {
+                    Column(
+                        horizontalAlignment = Alignment.End, modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 24.dp, top = 14.dp, start = 24.dp)
+                    ) {
+                        //to give a smoother animation to the changing list
+                        Crossfade(poem) { Text(it[rand].rhyme, fontSize = 18.sp) }
+                        HorizontalDivider(
+                            Modifier.padding(horizontal = 8.dp, vertical = 10.dp),
+                            color = MaterialTheme.colorScheme.onSecondary
+                        )
+                        if (rhymeState != null) {
+                            LazyColumn(
+                                modifier = Modifier.fillMaxSize(),
+                                verticalArrangement = Arrangement.Top,
+                                horizontalAlignment = Alignment.End
+                            ) {
+                                items(rhymeState!!.data_items) {
+                                    if (available) {
+                                        Text(
+                                            it.word,
+                                            textAlign = TextAlign.End
+                                        )
+                                    }
                                 }
                             }
+                        } else {
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) { CircularProgressIndicator() }
                         }
-                    } else {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) { CircularProgressIndicator() }
                     }
                 }
             }
+        }
+
+    } else {
+        //if there is no internet connection
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(30.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.baseline_signal_wifi_statusbar_connected_no_internet_4_24),
+                "no internet connection",
+                modifier = Modifier.size(200.dp),
+                tint = MaterialTheme.colorScheme.onBackground
+            )
+            Text(
+                "مشکل در اتصال به اینترنت",
+                textAlign = TextAlign.Center,
+                fontFamily = FontFamily(Font(R.font.onvan_font)),
+                fontSize = 35.sp,
+                modifier = Modifier.padding(top = 12.dp),
+                color = MaterialTheme.colorScheme.onBackground
+            )
         }
     }
 }
