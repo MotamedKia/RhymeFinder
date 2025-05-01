@@ -54,16 +54,18 @@ fun QueryItem(modifier: Modifier = Modifier, query: String, rhyme: String) {
                     containerColor = MaterialTheme.colorScheme.primaryContainer
                 ),
                 onClick = {
-                    val dbList: List<SavedRhymes>? = Hawk.get("savedRhymes", emptyList())
-                    val finalList = dbList?.toMutableList()
-                    finalList?.add(SavedRhymes(query, rhyme))
-                    Hawk.put("savedRhymes", finalList)
-                    done = true
-                    Toast.makeText(
-                        context,
-                        "کلمه ی $query هم قافیه ی $rhyme ذخیره شد.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (!done) {
+                        val dbList: List<SavedRhymes>? = Hawk.get("savedRhymes", emptyList())
+                        val finalList = dbList?.toMutableList()
+                        finalList?.add(SavedRhymes(query, rhyme))
+                        Hawk.put("savedRhymes", finalList)
+                        done = true
+                        Toast.makeText(
+                            context,
+                            "کلمه ی $query هم قافیه ی $rhyme ذخیره شد.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }) {
                 Icon(
                     if (it) Icons.Default.Check else Icons.Default.Add,

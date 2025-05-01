@@ -30,7 +30,7 @@ import com.example.rhymefinder.models.SavedRhymes
 import com.orhanobut.hawk.Hawk
 
 //when the item in Saved screen is clicked, this Dialog is called
-    /*the clickables are handled inn Saved screen*/
+/*the clickables are handled inn Saved screen*/
 @Composable
 fun DeleteDialog(modifier: Modifier = Modifier, onConfirmClick: () -> Unit, onDismiss: () -> Unit) {
 
@@ -43,27 +43,28 @@ fun DeleteDialog(modifier: Modifier = Modifier, onConfirmClick: () -> Unit, onDi
             ) {
                 Text(
                     "آیا میخواهید این مورد را حذف کنید؟",
-                    fontFamily = FontFamily(Font(R.font.vazirmatn_medium)),
-                    textAlign = TextAlign.End
+                    fontFamily = FontFamily(Font(R.font.vazirmatn_medium))
                 )
                 Spacer(Modifier.height(42.dp))
                 Row {
-                    Button(onClick = {
-                        onConfirmClick()
-                    }, modifier = Modifier.weight(1f)) {
+                    Button(
+                        onClick = {
+                            onConfirmClick()
+                        }, modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                    ) {
                         Text(
-                            "بله",
+                            "بله", color = MaterialTheme.colorScheme.onError,
                             fontFamily = FontFamily(Font(R.font.sher_font)), fontSize = 25.sp
                         )
                     }
                     Spacer(Modifier.weight(1f))
                     Button(
                         onClick = { onDismiss() },
-                        modifier = Modifier.weight(1f),
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                        modifier = Modifier.weight(1f)
                     ) {
                         Text(
-                            "خیر", color = MaterialTheme.colorScheme.onError,
+                            "خیر",
                             fontFamily = FontFamily(Font(R.font.sher_font)), fontSize = 25.sp
                         )
                     }

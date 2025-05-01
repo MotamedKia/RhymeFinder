@@ -29,7 +29,6 @@ fun SavedScreenItem(
     list: SavedRhymes,
     onDeleteClick: () -> Unit
 ) {
-    val context = LocalContext.current
     OutlinedCard(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,11 +44,11 @@ fun SavedScreenItem(
             horizontalArrangement = Arrangement.Center
         ) {
             Spacer(Modifier.weight(1f))
-            Text(modifier = Modifier.weight(1f), text = list.output)
-            Icon(Icons.Default.KeyboardArrowLeft, "", modifier = Modifier.weight(1f))
-            Spacer(Modifier.weight(1f))
+            Text(modifier = Modifier, text = list.output)
             Icon(Icons.Default.KeyboardArrowRight, "", modifier = Modifier.weight(1f))
-            Text(modifier = Modifier.weight(1f), text = list.input, textAlign = TextAlign.End)
+//            Spacer(Modifier.padding(12.dp))
+            Icon(Icons.Default.KeyboardArrowLeft, "", modifier = Modifier.weight(1f))
+            Text(modifier = Modifier, text = list.input, textAlign = TextAlign.End)
             Spacer(Modifier.weight(1f))
         }
     }
