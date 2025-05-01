@@ -47,7 +47,7 @@ fun QueryItem(modifier: Modifier = Modifier, query: String, rhyme: String) {
         //Using Crossfade for a smoother animation in the buttons
         Crossfade(done) {
             Button(modifier = Modifier
-                .size(65.dp, 65.dp),
+                .size(60.dp, 60.dp),
                 colors = if (it) ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error) else ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer
                 ),
@@ -67,7 +67,8 @@ fun QueryItem(modifier: Modifier = Modifier, query: String, rhyme: String) {
                     if (it) Icons.Default.Check else Icons.Default.Add,
                     "",
                     tint = if (it) MaterialTheme.colorScheme.onError
-                    else MaterialTheme.colorScheme.onPrimaryContainer
+                    else MaterialTheme.colorScheme.onPrimaryContainer,
+                    modifier = Modifier.size(50.dp, 50.dp)
                 )
             }
         }

@@ -73,10 +73,10 @@ fun AllWords(modifier: Modifier = Modifier) {
     ) {
         Spacer(Modifier.height(12.dp))
         //the search bar
-            /*there were other default searchBars that I have personally used in my other projects,
-            but honestly, none of them seemed practical,
-            because they all used a pre-instructed list,
-            but in here we have the list after the action of searching!*/
+        /*there were other default searchBars that I have personally used in my other projects,
+        but honestly, none of them seemed practical,
+        because they all used a pre-instructed list,
+        but in here we have the list after the action of searching!*/
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -100,7 +100,17 @@ fun AllWords(modifier: Modifier = Modifier) {
                     ),
                     modifier = Modifier.weight(5f),
                     value = rhymeQuery,
-                    onValueChange = { rhymeQuery = it },
+                    onValueChange = {
+                        rhymeQuery = it
+                        coroutineScope.launch {
+                            try {
+                                rhymeState = getRhyme(rhymeQuery)
+                                available = true
+                            } catch (e: Exception) {
+                                available = false
+                            }
+                        }
+                    },
                     label = {
                         Text(
                             "جستجو",
