@@ -90,6 +90,7 @@ fun AllWords(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
+                Spacer(Modifier.weight(0.25f))
                 TextField(
                     colors = TextFieldDefaults.colors(
                         unfocusedContainerColor = MaterialTheme.colorScheme.primary,
@@ -113,11 +114,9 @@ fun AllWords(modifier: Modifier = Modifier) {
                     },
                     label = {
                         Text(
-                            "جستجو",
-                            textAlign = TextAlign.End,
-                            modifier = Modifier.fillMaxWidth()
+                            "جستجو"
                         )
-                    }, textStyle = TextStyle(textAlign = TextAlign.End), singleLine = true
+                    }, singleLine = true
                 )
                 Spacer(Modifier.weight(0.25f))
                 IconButton(onClick = {

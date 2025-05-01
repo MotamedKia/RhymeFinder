@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
@@ -80,12 +81,12 @@ class MainActivity : ComponentActivity() {
                         }, bottomBar = {
                             NavigationBar {
                                 NavigationBarItem(
-                                    selected = currentRoute == AllWordsDestination.route,
-                                    onClick = { navController.navigate(AllWordsDestination.route) },
-                                    icon = { Icon(Icons.Default.Search, "") },
+                                    selected = currentRoute == SavedScreenDestination.route,
+                                    onClick = { navController.navigate(SavedScreenDestination.route) },
+                                    icon = { Icon(Icons.Default.Person, "") },
                                     label = {
                                         Text(
-                                            "جستجو",
+                                            "ذخیره شده ها",
                                             fontFamily = FontFamily(Font(R.font.vazirmatn_medium))
                                         )
                                     }
@@ -102,12 +103,12 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
                                 NavigationBarItem(
-                                    selected = currentRoute == SavedScreenDestination.route,
-                                    onClick = { navController.navigate(SavedScreenDestination.route) },
-                                    icon = { Icon(Icons.Default.Person, "") },
+                                    selected = currentRoute == AllWordsDestination.route,
+                                    onClick = { navController.navigate(AllWordsDestination.route) },
+                                    icon = { Icon(Icons.Default.Search, "") },
                                     label = {
                                         Text(
-                                            "ذخیره شده ها",
+                                            "جستجو",
                                             fontFamily = FontFamily(Font(R.font.vazirmatn_medium))
                                         )
                                     }
@@ -116,12 +117,20 @@ class MainActivity : ComponentActivity() {
                         }
                     ) { innerPadding ->
                         val context = LocalContext.current
+                        val activity = LocalActivity.current
                         Hawk.init(context).build()
                         DestinationsNavHost(
                             navGraph = NavGraphs.root,
                             navController = navController,
                             modifier = Modifier.padding(innerPadding)
                         )
+                        BackHandler {
+                            if (currentRoute == HomeScreenDestination.route) {
+                                activity?.finish()
+                            } else {
+                                navController.navigateUp()
+                            }
+                        }
                     }
                 }
             }
