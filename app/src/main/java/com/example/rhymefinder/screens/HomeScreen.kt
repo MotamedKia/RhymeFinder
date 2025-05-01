@@ -1,10 +1,13 @@
 package com.example.rhymefinder.screens
 
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,6 +17,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -38,6 +43,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.example.rhymefinder.R
 import com.example.rhymefinder.logics.RandomIndex
 import com.example.rhymefinder.logics.getRhyme
@@ -81,7 +87,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navigator: DestinationsNavigator) 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 20.dp, top = 15.dp), verticalAlignment = Alignment.Top
+                .padding(start = 20.dp, top = 15.dp, end = 20.dp), verticalAlignment = Alignment.Top
         ) {
             IconButton(onClick = {
                 rand = RandomIndex(poemList)
@@ -97,6 +103,19 @@ fun HomeScreen(modifier: Modifier = Modifier, navigator: DestinationsNavigator) 
             }) {
                 Icon(
                     Icons.Default.Refresh,
+                    "",
+                    Modifier.size(30.dp, 30.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+            Spacer(Modifier.weight(1f))
+            IconButton(onClick = {
+                val url = "https://andishehparsi.ir/" // Replace with your desired URL
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                context.startActivity(intent)
+            }) {
+                Icon(
+                    Icons.Default.Info,
                     "",
                     Modifier.size(30.dp, 30.dp),
                     tint = MaterialTheme.colorScheme.primary

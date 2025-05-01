@@ -97,8 +97,10 @@ fun AllWords(modifier: Modifier = Modifier, query: String = "") {
                         unfocusedContainerColor = MaterialTheme.colorScheme.primary,
                         focusedContainerColor = MaterialTheme.colorScheme.primary,
                         focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black,
                         focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
-                        unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary
+                        unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                        cursorColor = MaterialTheme.colorScheme.onBackground
                     ),
                     modifier = Modifier.weight(5f),
                     value = rhymeQuery,
