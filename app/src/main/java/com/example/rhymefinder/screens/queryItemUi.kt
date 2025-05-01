@@ -44,6 +44,8 @@ fun QueryItem(modifier: Modifier = Modifier, query: String, rhyme: String) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
+        Text(rhyme, modifier = Modifier.weight(1f))
+        Spacer(Modifier.weight(2f))
         //Using Crossfade for a smoother animation in the buttons
         Crossfade(done) {
             Button(modifier = Modifier
@@ -72,7 +74,5 @@ fun QueryItem(modifier: Modifier = Modifier, query: String, rhyme: String) {
                 )
             }
         }
-        Spacer(Modifier.weight(2f))
-        Text(rhyme, modifier = Modifier.weight(1f), textAlign = TextAlign.End)
     }
 }

@@ -46,10 +46,11 @@ import kotlinx.coroutines.launch
 //this is Search screen, it's too late to rename it!
 @Destination
 @Composable
-fun AllWords(modifier: Modifier = Modifier) {
+fun AllWords(modifier: Modifier = Modifier, query: String = "") {
     val context = LocalContext.current
     var rhymeState by remember { mutableStateOf<RhymeFind?>(null) }
-    var rhymeQuery by remember { mutableStateOf("") }
+//    if (query.isEmpty()){}else{}
+    var rhymeQuery by remember { mutableStateOf(query) }
     var available by remember { mutableStateOf(true) }
 
     val coroutineScope = rememberCoroutineScope()
