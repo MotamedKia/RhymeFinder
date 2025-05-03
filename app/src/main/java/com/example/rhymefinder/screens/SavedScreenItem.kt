@@ -44,11 +44,11 @@ fun SavedScreenItem(
             horizontalArrangement = Arrangement.Center
         ) {
             Spacer(Modifier.weight(1f))
-            Text(modifier = Modifier, text = list.output)
+            Text(modifier = Modifier, text = list.input)
             Icon(Icons.Default.KeyboardArrowRight, "", modifier = Modifier.weight(1f))
 //            Spacer(Modifier.padding(12.dp))
             Icon(Icons.Default.KeyboardArrowLeft, "", modifier = Modifier.weight(1f))
-            Text(modifier = Modifier, text = list.input, textAlign = TextAlign.End)
+            Text(modifier = Modifier, text = list.output, textAlign = TextAlign.End)
             Spacer(Modifier.weight(1f))
         }
     }

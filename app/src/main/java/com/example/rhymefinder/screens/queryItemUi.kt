@@ -34,6 +34,7 @@ import com.orhanobut.hawk.Hawk
 //The item template in Search screen
 @Composable
 fun QueryItem(modifier: Modifier = Modifier, query: String, rhyme: String) {
+    var savedListState by remember { mutableStateOf<List<SavedRhymes>?>(null) }
     val context = LocalContext.current
     var done by remember { mutableStateOf(false) }
     Row(
@@ -65,6 +66,21 @@ fun QueryItem(modifier: Modifier = Modifier, query: String, rhyme: String) {
                             "کلمه ی $query هم قافیه ی $rhyme ذخیره شد.",
                             Toast.LENGTH_SHORT
                         ).show()
+                    } else {
+                        val updatedList: List<SavedRhymes>? =
+                            Hawk.get("savedRhymes", emptyList())
+                        val finalList = updatedList?.toMutableList()
+                        val item = SavedRhymes(query, rhyme)
+                        finalList?.remove(item)
+                        Hawk.put("savedRhymes", finalList)
+                        savedListState = Hawk.get("savedRhymes", emptyList())
+                        Toast.makeText(
+                            context,
+                            "${item.input} و ${item.output} حذف شدند.",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        done = false
                     }
                 }) {
                 Icon(
