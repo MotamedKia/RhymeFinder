@@ -7,4 +7,4 @@ you're welcome. 😉"
 > this app is currently written in Persian language, and has no other versions.
 
 ## 📦 Download this app 👇
-[Download the latest APK]([https://github.com/MotamedKia/RhymeFinder/blob/master/app/release/app-release.apk](https://github.com/MotamedKia/RhymeFinder/releases/tag/apps))
+[Download the APK here](https://github.com/MotamedKia/RhymeFinder/releases/download/apps/HamGhafieh-0.1.2.apk)
