@@ -4,5 +4,7 @@ Do you know every word in Persian language to find well-fitted rhymes for your p
 This app is here to help you. 😎
 Just search any word, and you'll be given tons of rhymes in this beautiful language. 👌
 you're welcome. 😉"
-- Amir Motamedkia, the programmer
-- this app is currently written in Persian language, and has no other versions.
+> this app is currently written in Persian language, and has no other versions.
+
+## 📦 Download this app 👇
+[Download the APK here](https://github.com/MotamedKia/RhymeFinder/releases/download/apps/HamGhafieh-0.1.2.apk)
