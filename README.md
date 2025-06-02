@@ -5,3 +5,6 @@ This app is here to help you. 😎
 Just search any word, and you'll be given tons of rhymes in this beautiful language. 👌
 you're welcome. 😉"
 > this app is currently written in Persian language, and has no other versions.
+
+## 📦 Download this app 👇
+[Download the latest APK](https://github.com/MotamedKia/RhymeFinder/blob/master/app/release/app-release.apk)
