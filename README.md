@@ -6,5 +6,10 @@ Just search any word, and you'll be given tons of rhymes in this beautiful langu
 you're welcome. 😉"
 > this app is currently written in Persian language, and has no other versions.
 
+## Light Mode 👇
+![Alt Text](https://github.com/MotamedKia/RhymeFinder/blob/master/pic_light%20mood%20ver.png)
+
+## Dark Mode 👇
+![Alt Text](https://github.com/MotamedKia/RhymeFinder/blob/master/pic_dark%20mood%20ver.png)
 ## 📦 Download this app 👇
 [Download the APK here](https://github.com/MotamedKia/RhymeFinder/releases/download/apps/HamGhafieh-0.1.3.apk)
