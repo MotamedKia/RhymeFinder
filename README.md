@@ -13,3 +13,6 @@ you're welcome. 😉"
 ![Alt Text](https://github.com/MotamedKia/RhymeFinder/blob/master/pic_dark%20mood%20ver.png)
 ## 📦 Download this app 👇
 [Download the APK here](https://github.com/MotamedKia/RhymeFinder/releases/download/apps/HamGhafieh-0.1.3.apk)
+
+##
+✅ Now in [cafebazaar.ir](https://cafebazaar.ir/)
