@@ -15,4 +15,4 @@ you're welcome. 😉"
 [Download the APK here](https://github.com/MotamedKia/RhymeFinder/releases/download/apps/HamGhafieh-0.1.3.apk)
 
 ##
-✅ Now in [cafebazaar.ir](https://cafebazaar.ir/)
+✅ Now in [cafebazaar.ir](https://cafebazaar.ir/app/com.example.rhymefinder)
